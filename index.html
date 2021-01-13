@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>VonderLinden Farms Invoice Form</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script>
+        var productObject = {
+          "10cc Liquid Culture Syringe": {
+            "Blue Oyster(Commercial)": [1-10],
+            "Golden Oyster": ["1", "2", "3"],
+            "Pink Oyster": ["1 - 10"]
+          },
+          "Modified Mason Jar Lids": {
+            "Wide Mouth LC Lid": ["6", "12"],
+            "Normal Mouth LC Lid": ["6", "12"],
+            "Wide Mouth Grain Spawn Lid": ["6", "12"],
+            "Normal Mouth Grain Spawn Lid": ["6", "12"]
+          },
+          "Pre-poured Agar Plates": {
+            "Malt Extract Agar": ["10", "25"],
+            "Potato Flake Agar": ["10", "25"],
+            "Oatmeal Agar": ["10", "25"]
+          }
+        }
+        window.onload = function() {
+          var typeSel = document.getElementById("type");
+          var productSel = document.getElementById("product");
+          var quantitySel = document.getElementById("quantity");
+          for (var x in productObject) {
+            typeSel.options[typeSel.options.length] = new Option(x, x);
+          }
+          typeSel.onchange = function() {
+            quantitySel.length = 1;
+            productSel.length = 1;
+            for (var y in productObject[this.value]) {
+              productSel.options[productSel.options.length] = new Option(y, y);
+            }
+          }
+          productSel.onchange = function() {
+            quantitySel.length = 1;
+            var z = productObject[typeSel.value][this.value];
+            for (var i = 0; i < z.length; i++) {
+              quantitySel.options[quantitySel.options.length] = new Option(z[i], z[i]);
+            }
+          }
+        }
+    </script>
+</head>
+
+<body>
+
+    <h1>VonderLinden Farms Invoice Form</h1>
+
+    <p>Shipping Information:</p>
+    <form>
+        <label for="fname">First name:</label>
+        <input type="text" id="fname" name="fname">
+        <label for="lname">Last name:</label>
+        <input type="text" id="lname" name="lname"><br>
+        <label for="street">Street:</label>
+        <input type="text" id="street" name="street"><br>
+        <label for="appt">Appt #:</label>
+        <input type="text" id="appt" name="appt"><br>
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city">
+        <label for="state">State:</label>
+        <input type="text" id="state" name="state">
+        <label for="zip">Zip:</label>
+        <input type="text" id="zip" name="zip"><br><br><br>
+        <label for="fname">Payment Type:</label>
+        <input type="text" id="fname" name="fname"><br>
+    </form>
+    <br>
+    <form name="form1" id="form1" action="/action_page.php">
+      Product Type: <select name="type" id="type">
+        <option value="" selected="selected">Select product type</option>
+      </select>
+      <br><br>
+      Product: <select name="product" id="product">
+        <option value="" selected="selected">Select product</option>
+      </select>
+      <br><br>
+      Quantity: <select name="quantity" id="quantity">
+        <option value="" selected="selected">Quantity</option>
+      </select>
+      <br><br>
+      <input type="submit" value="Submit">
+    </form></body>
+</html>
