@@ -57,12 +57,11 @@
         </option>
       </select>
       <br /><br />
-      Subtotal:
-      <input type="text" id="subtotal" v-model="subtotal">
-      {{ subtot }}
+      Subtotal: {{subTotal}}
+      <!-- <input type="text" id="subtotal" v-model="subtotal"> -->
       <br /><br />
-      Total:
-      <input type="text" id="total" name="total" v-model="total">
+      Total: {{total}}
+      <!-- <input type="text" id="total" name="total" v-model="total"> -->
     </form>
   </div>
 </template>
@@ -83,7 +82,6 @@ export default {
       product: null,
       product_type: null,
       product_quantity: null,
-      subtotal: null,
 
       product_types: [
         {
@@ -183,9 +181,15 @@ export default {
           }
           return []
       },
-      subtot(){
-        var subtotal = this.price * this.quantity
-        return subtotal
+      currentProduct(){
+        return this.products.filter(item => this.product == item.id)[0]
+      },
+      total(){return 0},
+      subTotal(){
+        if(!this.product) return 0;
+        let price = this.currentProduct.price
+        let quantity = this.product_quantity ?? 0
+        return price * quantity
       }
   }
 };
