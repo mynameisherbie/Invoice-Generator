@@ -17,9 +17,9 @@
       <label for="state">State:</label>
       <input type="text" id="state" name="state" v-model="state" />
       <label for="zip">Zip:</label>
-      <input type="text" id="zip" name="zip" v-model="zip" /><br /><br /><br />
-      <label for="fname">Payment Type:</label>
-      <input type="text" id="fname" name="fname" v-model="payment_type" /><br />
+      <input type="text" id="zip" name="zip" v-model="zip" /><br /><br />
+      <label for="payment">Payment Type:</label>
+      <input type="text" id="payment" name="payment" v-model="payment_type" /><br />
       <br />
       Product Type:
       <select name="type" id="type" v-model="product_type">
@@ -32,7 +32,7 @@
           {{ productType.name }}
         </option>
       </select>
-      <br /><br />
+      <br />
       Product:
       <select name="product" id="product" v-model="product">
         <option :value="null">Select product</option>
@@ -44,7 +44,7 @@
           {{ product.name }}
         </option>
       </select>
-      <br /><br />
+      <br />
       Quantity:
       <select name="quantity" id="quantity" v-model="product_quantity">
         <option :value="null">Quantity</option>
@@ -57,7 +57,12 @@
         </option>
       </select>
       <br /><br />
-      <input type="submit" value="Submit" />
+      Subtotal:
+      <input type="text" id="subtotal" v-model="subtotal">
+      {{ subtot }}
+      <br /><br />
+      Total:
+      <input type="text" id="total" name="total" v-model="total">
     </form>
   </div>
 </template>
@@ -78,6 +83,7 @@ export default {
       product: null,
       product_type: null,
       product_quantity: null,
+      subtotal: null,
 
       product_types: [
         {
@@ -88,16 +94,19 @@ export default {
               id: 1,
               name: "Blue Oyster(Commercial)",
               quantities: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+              price: 25.00,
             },
             {
               id: 2,
               name: "Golden Oyster",
-              quantities: [1, 2, 3],
+              quantities: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+              price: 15.00,
             },
             {
               id: 3,
               name: "Pink Oyster",
               quantities: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+              price: 15.00,
             },
           ],
         },
@@ -109,21 +118,25 @@ export default {
               id: 4,
               name: "Wide Mouth LC Lid",
               quantities: [6, 12],
+              price: 7.00,
             },
             {
               id: 5,
               name: "Normal Mouth LC Lid",
               quantities: [6, 12],
+              price: 6.00,
             },
             {
               id: 6,
               name: "Wide Mouth Grain Spawn Lid",
               quantities: [6, 12],
+              price: 7.00,
             },
             {
               id: 7,
               name: "Normal Mouth Grain Spawn Lid",
               quantities: [6, 12],
+              price: 7.00,
             },
           ],
         },
@@ -135,16 +148,19 @@ export default {
               id: 8,
               name: "Malt Extract Agar",
               quantities: [10, 25],
+              price: 2.50,
             },
             {
               id: 9,
               name: "Potato Flake Agar",
               quantities: [10, 25],
+              price: 2.50,
             },
             {
               id: 10,
               name: "Oatmeal Agar",
               quantities: [10, 25],
+              price: 2.50,
             },
           ],
         },
@@ -166,6 +182,10 @@ export default {
             return filteredProduct[0].quantities
           }
           return []
+      },
+      subtot(){
+        var subtotal = this.price * this.quantity
+        return subtotal
       }
   }
 };
